@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+  </head>
+  <body>
+    <h3>My Google Maps Demo</h3>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+    //Change the lat and lng for your address
+        var uluru = {lat: 42.5916836, lng: -88.4334301};
+        var map = new google.maps.Map(document.getElementById('map'), {
+    //Change the zoom level of map
+          zoom: 12,
+          center: uluru,
+    //Change the map type default is ROADMAP
+          mapTypeId :google.maps.MapTypeId.HYBRID,
+          draggable: false,
+          scrollwheel : false
+        });
+      //Maps Marker
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      //Adding pop up for marker
+      var contentString = 'Address1 <br>City <br>State-pincode' ; 
+          
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+      //on click show the pop up address in the marker
+      marker.addListener('click', function() {
+              infowindow.open(map, marker);
+            });
+
+	//Adding animation effect to marker
+	marker.addListener('click', toggleBounce);
+	function toggleBounce() {
+      if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+      } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+      }
+          }
+      }
+	
+    </script>
+    <!-- Add your Key below -->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTfuTj-VpjhSWd6qoH_zeKloemleE2zU4&callback=initMap">
+    </script>
+  </body>
+</html>
